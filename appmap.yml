@@ -1,0 +1,13 @@
+name: flighthazard
+appmap_dir: tmp/appmap
+language: javascript
+description: |
+  Flight Hazard is an app to track weather conditions and other hazards that could affect a flight.
+  A user can store proposed flights and be notified about potential hazards. The frontend is
+  a Swift app, and the backend is Next.js. The backend uses PostgreSQL and serves data to the frontend
+  as JSON over REST.
+packages:
+  - path: src
+    exclude:
+      - node_modules
+      - .yarn

@@ -1,0 +1,41 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Airport {
+  icaoCode                 String       @id @unique
+  users                    User[]
+  flightPlansOfDeparture   FlightPlan[] @relation("DepartureAirport")
+  flightPlansOfDestination FlightPlan[] @relation("DestinationAirport")
+  FlightPlan               FlightPlan[]
+}
+
+model FlightPlan {
+  id                         String   @id @default(cuid())
+  User                       User?    @relation(fields: [userId], references: [id])
+  userId                     String?
+  departureAirport           Airport  @relation(fields: [departureAirportIcaoCode], references: [icaoCode], name: "DepartureAirport")
+  departureAirportIcaoCode   String
+  waypoints                  String[]
+  destinationAirport         Airport  @relation(fields: [destinationAirportIcaoCode], references: [icaoCode], name: "DestinationAirport")
+  destinationAirportIcaoCode String
+  departureTime              DateTime
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @updatedAt
+  Airport                    Airport? @relation(fields: [airportIcaoCode], references: [icaoCode])
+  airportIcaoCode            String?
+}
+
+model User {
+  id             String       @id @default(cuid())
+  iosDeviceToken String?
+  airports       Airport[]
+  flightPlans    FlightPlan[]
+}

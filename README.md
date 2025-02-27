@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FlightHazard
 
-## Getting Started
+This is an API server that provides information about the weather and the flight hazards in a given location. The API server is built using Next.js and the data is fetched from a variety of official source including the Aviation Weather Center (AWC) and the National Weather Service (NWS).
 
-First, run the development server:
+## Development
+
+You need Node.js 22, Yarn, and Docker.
+
+Run dependencies and configure the environment. This script starts dependency services in docker, extracts dynamic information such as assigned port numbers, and sets environment variables.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+eval $(./dev.sh)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create the database using `prisma`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command              | Use Case                                                                    |
+| -------------------- | --------------------------------------------------------------------------- |
+| `prisma db push`     | Prototyping, quick schema sync, local dev without migration tracking        |
+| `prisma migrate dev` | Version-controlled migrations for structured development and production use |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+For example:
 
-## Learn More
+```bash
+yarn prisma db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+Run the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+yarn dev
+```
